@@ -1,0 +1,1 @@
+"C:\Users\Server Aula Info\AppData\Local\Programs\Python\Python310\python.exe" "C:\Windows\System34\botmensamazza\telegrambot.py"
