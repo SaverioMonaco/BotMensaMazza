@@ -16,7 +16,7 @@ my $bot_chatID = '-1001604234843';
 # The other two are useless
 # The last one is 3 for pranzo, 5 for cena
 my @url = map { 'https://donmazza.serenissimacloud.it/menu/' . time . "/0/0/$_" } (3, 5);
-my @html = map { join ' ', `curl $_` } @url;
+my @html = map { join ' ', `curl -k $_` } @url;
 my @dishes = map {
   my %results;
   $_ =~ m/<!-- INIZIO Piatti del giorno.*<!-- FINE Piatti del giorno/s;
@@ -43,4 +43,6 @@ while (my ($m, $meal) = each @meals) {
 }
 
 $message =~ s/([\W])/"%" . uc(sprintf("%2.2x",ord($1)))/eg;
-print `curl "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$bot_chatID&parse_mode=Markdown&text=$message"`;
+if(length($message)>400) {
+    print `curl "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$bot_chatID&parse_mode=Markdown&text=$message"`;
+}
